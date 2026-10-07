@@ -1,0 +1,17 @@
+services:
+  app:
+    build: .
+    ports:
+      - "43127:43127"
+    environment:
+      PORT: 43127
+      REQUIRE_CLAMAV: "1"
+      CLAMSCAN_PATH: /usr/bin/clamscan
+      CLAMDSCAN_PATH: /usr/bin/clamdscan
+      CLAMD_SOCKET: /var/run/clamav/clamd.ctl
+      EXIFTOOL_PATH: exiftool
+    volumes:
+      - uploads:/usr/src/app/data
+
+volumes:
+  uploads:

@@ -1,0 +1,133 @@
+:root {
+  --bg: #0f1412;
+  --panel: #171d1a;
+  --ink: #e8efe9;
+  --muted: #93a39a;
+  --line: #2a3530;
+  --accent: #7dffb3;
+  --accent-ink: #062314;
+  --danger: #ff8a8a;
+  --warn: #ffd27a;
+  --ok: #7dffb3;
+  --shadow: 0 24px 60px rgba(0, 0, 0, 0.35);
+  --radius: 18px;
+  font-family: "Segoe UI", "Iowan Old Style", Georgia, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; background: radial-gradient(1200px 600px at 10% -10%, #1d2a24, var(--bg)); color: var(--ink); }
+button, input, pre { font: inherit; }
+a { color: var(--accent); }
+
+.page {
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+}
+
+.hero h1 {
+  font-size: clamp(2.1rem, 5vw, 3.4rem);
+  letter-spacing: -0.04em;
+  margin: 8px 0 12px;
+}
+.kicker { text-transform: uppercase; letter-spacing: 0.16em; color: var(--accent); font-size: 0.78rem; margin: 0; }
+.lede { color: var(--muted); max-width: 62ch; line-height: 1.55; margin: 0 0 20px; }
+
+.status-row { display: flex; gap: 8px; flex-wrap: wrap; }
+.pill {
+  border: 1px solid var(--line);
+  background: #101714;
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.85rem;
+}
+.pill.ok { border-color: #1f5a3a; color: var(--ok); }
+.pill.bad { border-color: #6a2a2a; color: var(--danger); }
+.pill.muted { color: var(--muted); }
+
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 22px;
+  box-shadow: var(--shadow);
+  margin-top: 22px;
+}
+
+.dropzone {
+  display: grid;
+  place-items: center;
+  gap: 6px;
+  min-height: 170px;
+  border: 1.5px dashed #3c5248;
+  border-radius: 14px;
+  background: #121815;
+  cursor: pointer;
+  text-align: center;
+  color: var(--muted);
+  padding: 24px;
+}
+.dropzone.drag { border-color: var(--accent); background: #163024; color: var(--ink); }
+.dropzone input { display: none; }
+.dropzone strong { color: var(--ink); font-size: 1.15rem; }
+.dropzone em { color: var(--accent); font-style: normal; min-height: 1.2em; }
+
+.actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+button {
+  background: var(--accent);
+  color: var(--accent-ink);
+  border: 0;
+  border-radius: 999px;
+  padding: 11px 16px;
+  font-weight: 650;
+  cursor: pointer;
+}
+button.ghost {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--line);
+}
+button:disabled { opacity: 0.55; cursor: wait; }
+.hint { color: var(--muted); font-size: 0.9rem; margin: 12px 0 0; }
+
+.banner { margin-top: 16px; padding: 12px 14px; border-radius: 12px; }
+.banner.ok { background: #143525; color: var(--ok); }
+.banner.bad { background: #3a1616; color: var(--danger); }
+.hidden { display: none !important; }
+
+.split { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+.steps { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.6; }
+.steps code { color: var(--ink); }
+h2 { margin: 0 0 14px; font-size: 1.2rem; }
+h3 { margin: 0 0 8px; font-size: 0.85rem; color: var(--muted); font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+
+dl { display: grid; grid-template-columns: 120px 1fr; gap: 6px 12px; margin: 0 0 16px; }
+dt { color: var(--muted); }
+dd { margin: 0; }
+
+.meta-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+pre {
+  margin: 0;
+  background: #101714;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 10px;
+  min-height: 120px;
+  max-height: 240px;
+  overflow: auto;
+  font-size: 0.78rem;
+  color: #c9ddd2;
+}
+
+.table-head { display: flex; justify-content: space-between; align-items: center; }
+.empty { color: var(--muted); }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; }
+th, td { text-align: left; padding: 10px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--muted); font-size: 0.8rem; font-weight: 600; }
+.tag { display: inline-block; border-radius: 999px; padding: 2px 8px; font-size: 0.78rem; border: 1px solid var(--line); }
+
+@media (max-width: 800px) {
+  .split, .meta-grid, dl { grid-template-columns: 1fr; }
+  .page { padding-top: 24px; }
+}

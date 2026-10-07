@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Secure Uploads</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero">
+        <p class="kicker">Express · ClamAV · ExifTool</p>
+        <h1>Scan, strip, then store.</h1>
+        <p class="lede">
+          Every upload is virus-scanned with ClamAV, stripped of EXIF and other metadata with ExifTool,
+          then kept only if it is clean.
+        </p>
+        <div class="status-row" id="status-row">
+          <span class="pill" id="clam-pill">Checking scanner…</span>
+          <span class="pill muted" id="limit-pill">Size limit —</span>
+        </div>
+      </header>
+
+      <section class="card drop-card">
+        <form id="upload-form">
+          <label class="dropzone" id="dropzone" for="file-input">
+            <input id="file-input" name="file" type="file" required />
+            <strong>Drop a file here</strong>
+            <span>or click to choose an image, PDF, or document</span>
+            <em id="chosen-name"></em>
+          </label>
+          <div class="actions">
+            <button type="submit" id="submit-btn">Scan and upload</button>
+            <button type="button" class="ghost" id="eicar-btn">Try EICAR test file</button>
+          </div>
+          <p class="hint">
+            The EICAR file is a harmless antivirus test signature. It should be rejected and never stored.
+          </p>
+        </form>
+        <div class="banner hidden" id="banner"></div>
+      </section>
+
+      <section class="split">
+        <article class="card">
+          <h2>Pipeline</h2>
+          <ol class="steps">
+            <li>Multer writes the file to a temp directory under a size cap.</li>
+            <li>The path is resolved and rejected if it leaves the app root.</li>
+            <li>ClamAV scans the bytes. Infected files are deleted immediately.</li>
+            <li>ExifTool runs <code>-all= -overwrite_original</code> to strip GPS, camera, and document tags.</li>
+            <li>The sanitized file is copied into local storage and the temp file is removed.</li>
+          </ol>
+        </article>
+        <article class="card result-card hidden" id="last-result">
+          <h2>Last result</h2>
+          <dl id="result-meta"></dl>
+          <div class="meta-grid">
+            <div>
+              <h3>Removed</h3>
+              <pre id="removed-meta"></pre>
+            </div>
+            <div>
+              <h3>Remaining</h3>
+              <pre id="remaining-meta"></pre>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="card">
+        <div class="table-head">
+          <h2>Stored files</h2>
+          <button type="button" class="ghost" id="refresh-btn">Refresh</button>
+        </div>
+        <div id="empty-state" class="empty">No clean files stored yet.</div>
+        <div class="table-wrap">
+          <table id="files-table" class="hidden">
+            <thead>
+              <tr>
+                <th>File</th>
+                <th>Scan</th>
+                <th>Metadata</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+    <script src="/app.js"></script>
+  </body>
+</html>
